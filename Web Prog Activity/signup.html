@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="form-container">
+        <h1 class="heading">Sign Up</h1>
+        <form action="#" method="post" onsubmit="return validateForm(event)">
+            <label for="fullname" class="label">Full Name</label>
+            <input class="input-field" type="text" id="fullname" name="fullname" placeholder="Full Name" required>
+
+            <label for="email" class="label">Email</label>
+            <input class="input-field" type="email" name="email" placeholder="Email" required>
+
+            <label for="username" class="label">Username</label>
+            <input class="input-field" type="text" name="username" placeholder="Username" required>
+
+            <label for="password" class="label">Password</label>
+            <input class="input-field" type="password" id="password" name="password" placeholder="Password" required>
+
+            <label for="confirmpassword" class="label">Confirm Password</label>
+            <input class="input-field" type="password" id="confirmpassword" name="confirmpassword" placeholder="Confirm Password" required>
+
+            <label class="show-password">
+                <input type="checkbox" onclick="togglePassword()"> Show Password
+            </label>
+
+            <input class="submit-btn" type="submit" value="Sign Up">   
+            <span class="loginA">Already have an account? <a href="login.html">Login</a></span>      
+
+        </form>
+        
+    </div>
+
+    <script>
+        function validateForm(event) {
+            const password = document.getElementById("password");
+            const confirmPassword = document.getElementById("confirmpassword");
+
+            if (password.value !== confirmPassword.value) {
+                alert("Passwords do not match.");
+                event.preventDefault();
+                return false;
+            }
+            else {
+                alert("Sign Up Successful!");
+            }
+
+            const inputs = document.querySelectorAll("input[required]");
+            for (let input of inputs) {
+                if (!input.value) {
+                    alert(input.placeholder + " is required.");
+                    event.preventDefault();
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function togglePassword() {
+            const password = document.getElementById("password");
+            const confirmPassword = document.getElementById("confirmpassword");
+            const passwordFields = [password, confirmPassword];
+            for (let field of passwordFields) {
+                if (field.type === "password") {
+                    field.type = "text";
+                } else {
+                    field.type = "password";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+
