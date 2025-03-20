@@ -9,15 +9,15 @@
 <body>
     <div class="form-container">
         <h1 class="heading">Sign Up</h1>
-        <form action="#" method="post" onsubmit="return validateForm(event)">
+        <form id="signup-form">
             <label for="fullname" class="label">Full Name</label>
             <input class="input-field" type="text" id="fullname" name="fullname" placeholder="Full Name" required>
 
             <label for="email" class="label">Email</label>
-            <input class="input-field" type="email" name="email" placeholder="Email" required>
+            <input class="input-field" type="email" id="email" name="email" placeholder="Email" required>
 
             <label for="username" class="label">Username</label>
-            <input class="input-field" type="text" name="username" placeholder="Username" required>
+            <input class="input-field" type="text" id="username" name="username" placeholder="Username" required>
 
             <label for="password" class="label">Password</label>
             <input class="input-field" type="password" id="password" name="password" placeholder="Password" required>
@@ -26,54 +26,36 @@
             <input class="input-field" type="password" id="confirmpassword" name="confirmpassword" placeholder="Confirm Password" required>
 
             <label class="show-password">
-                <input type="checkbox" onclick="togglePassword()"> Show Password
+                <input type="checkbox" id="show-password"> Show Password
             </label>
 
             <input class="submit-btn" type="submit" value="Sign Up">   
             <span class="loginA">Already have an account? <a href="login.html">Login</a></span>      
-
         </form>
-        
     </div>
 
     <script>
-        function validateForm(event) {
-            const password = document.getElementById("password");
-            const confirmPassword = document.getElementById("confirmpassword");
+        document.getElementById("signup-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevents default form submission
+            
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmpassword").value;
 
-            if (password.value !== confirmPassword.value) {
+            if (password !== confirmPassword) {
                 alert("Passwords do not match.");
-                event.preventDefault();
-                return false;
-            }
-            else {
-                alert("Sign Up Successful!");
+                return;
             }
 
-            const inputs = document.querySelectorAll("input[required]");
-            for (let input of inputs) {
-                if (!input.value) {
-                    alert(input.placeholder + " is required.");
-                    event.preventDefault();
-                    return false;
-                }
-            }
-            return true;
-        }
+            alert("Sign Up Successful!");
+        });
 
-        function togglePassword() {
+        document.getElementById("show-password").addEventListener("change", function() {
             const password = document.getElementById("password");
             const confirmPassword = document.getElementById("confirmpassword");
-            const passwordFields = [password, confirmPassword];
-            for (let field of passwordFields) {
-                if (field.type === "password") {
-                    field.type = "text";
-                } else {
-                    field.type = "password";
-                }
-            }
-        }
+            const type = this.checked ? "text" : "password";
+            password.type = type;
+            confirmPassword.type = type;
+        });
     </script>
 </body>
 </html>
-
